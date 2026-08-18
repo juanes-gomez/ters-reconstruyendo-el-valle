@@ -1,0 +1,13 @@
+{
+  "name": "ters-reconstruyendo-el-valle",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Landing TERS por la Reconstrucción de un nuevo Cali — contador conectado a la VAKI.",
+  "scripts": {
+    "vaki": "node agente-vaki.mjs"
+  },
+  "devDependencies": {
+    "playwright": "^1.47.0"
+  }
+}

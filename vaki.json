@@ -1,0 +1,7 @@
+{
+  "recaudo": 18040606,
+  "meta": 100000000,
+  "aportes": 123,
+  "actualizadoEn": "2026-08-17T12:44:43-05:00",
+  "_nota": "Cifra leída de la campaña VAKI el 17 ago 2026. La 'meta' es un valor de referencia editable (la VAKI no publica meta oficial). El agente (agente-vaki.mjs) reescribe este archivo automáticamente; la web lo lee cada 60s."
+}

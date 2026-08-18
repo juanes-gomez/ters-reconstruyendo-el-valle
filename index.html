@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TERS por la Reconstrucción de un nuevo Cali</title>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     TIPOGRAFÍA TERS
+     TERS usa: Mattone (display), Fraunces (serif) y Jost (sans/body).
+     Fraunces y Jost se cargan desde Google Fonts.
+     'Mattone' NO está en Google Fonts (es fuente propia): cuando tengan
+     el archivo, agréguenlo como @font-face y cámbienlo en --display.
+     ═══════════════════════════════════════════════════════════════ -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,800&family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  /* ─── Paleta TERS (colores reales de tersapparel.com) ─── */
+  --bg:#f5f2ec;         /* fondo crema suave TERS */
+  --white:#ffffff;
+  --ink:#2b1e16;        /* café espresso — superficies oscuras (antes verde) */
+  --brand:#6f4e37;      /* café TERS — botones / bordes (antes verde) */
+  --brown:#2b1e16;      /* café TERS */
+  --text:#151515;       /* texto */
+  --rose:#ce7979;       /* rosa acento TERS */
+  --rose-soft:#e39999;  /* rosa suave */
+  --muted:#5b5b52;      /* gris texto secundario */
+  --line:#e6e2d9;       /* líneas / bordes claros */
+
+  /* ─── Tipografía ─── */
+  --display:'Fraunces',serif;   /* (sustituir por 'Mattone' cuando esté disponible) */
+  --head:'Jost',sans-serif;     /* titulares / etiquetas */
+  --serif:'Fraunces',serif;     /* frases destacadas */
+  --body:'Jost',sans-serif;     /* cuerpo */
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--body);line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:920px;margin:0 auto;padding:0 20px}
+
+.eyebrow{font-family:var(--head);font-weight:500;letter-spacing:.42em;font-size:12px;text-transform:uppercase}
+h1,h2,h3{font-family:var(--display);font-weight:800;line-height:1.02;letter-spacing:-.01em}
+h1{font-size:clamp(44px,8.4vw,92px)}
+h2{font-size:clamp(28px,4.6vw,44px)}
+.serif{font-family:var(--serif);font-weight:400;font-style:italic;text-transform:none}
+.hl{background:var(--rose-soft);color:var(--brown);padding:0 .14em;border-radius:3px}
+
+.btn{display:inline-block;border:none;cursor:pointer;font-family:var(--head);font-weight:600;
+  text-transform:uppercase;letter-spacing:.10em;font-size:16px;background:var(--brand);
+  color:var(--white);padding:18px 46px;border-radius:999px;text-decoration:none;transition:transform .12s;
+  box-shadow:5px 5px 0 var(--ink)}
+.btn:hover{transform:scale(1.045)}
+.btn.dark{background:var(--ink);color:var(--rose-soft)}
+.btn.rose{background:var(--rose);color:var(--white)}
+
+.tag{font-family:var(--head);font-weight:600;letter-spacing:.32em;font-size:11.5px;color:var(--rose);text-transform:uppercase}
+
+/* Placeholder genérico "AQUÍ VA EL LOGO" y bloques pendientes */
+.logo-ph{font-family:var(--head);font-weight:600;letter-spacing:.14em;font-size:11px;text-transform:uppercase;
+  color:var(--muted);background:var(--white);border:1.5px dashed var(--brand);border-radius:10px;
+  padding:14px 22px;display:inline-flex;align-items:center;justify-content:center;min-width:150px;min-height:52px;text-align:center}
+.logo-cell{display:flex;flex-direction:column;align-items:center;gap:8px}
+.logo-cap{font-family:var(--head);font-weight:600;letter-spacing:.14em;font-size:10.5px;text-transform:uppercase;color:var(--muted)}
+.logo-img{height:100px;width:auto;display:block}
+.ph-block{border:2px dashed var(--rose);border-radius:16px;background:rgba(206,121,121,.06);
+  padding:26px;text-align:center}
+.ph-tag{display:inline-block;font-family:var(--head);font-weight:700;font-size:11px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--rose);background:var(--white);border:1.5px solid var(--rose);
+  border-radius:99px;padding:5px 14px;margin-bottom:12px}
+.ph-block h3{font-family:var(--head);font-weight:700;text-transform:uppercase;font-size:18px;color:var(--brand);letter-spacing:.02em}
+.ph-block p{font-size:13.5px;color:var(--muted);max-width:520px;margin:8px auto 0}
+
+/* Contador / progreso */
+.progress{background:var(--white);border:2px solid var(--brown);border-radius:999px;height:28px;overflow:hidden;position:relative}
+.progress>div{background:var(--rose);height:100%;width:0;transition:width 1.6s cubic-bezier(.22,1,.36,1);min-width:0;position:relative;overflow:hidden}
+.progress>div::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(100deg,rgba(255,255,255,0) 30%,rgba(255,255,255,.55) 50%,rgba(255,255,255,0) 70%);
+  transform:translateX(-100%)}
+.progress.reveal>div::after{animation:barShine 2.2s ease-in-out 1s 2}
+@keyframes barShine{to{transform:translateX(100%)}}
+.progress span{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-family:var(--head);font-weight:700;color:#a8325a;font-size:14px;letter-spacing:.06em}
+@keyframes bump{0%{transform:scale(1)}30%{transform:scale(1.05)}100%{transform:scale(1)}}
+.contador.bump{animation:bump .45s ease}
+/* Reveal on scroll — tarjetas y títulos */
+.reveal-up{opacity:0;transform:translateY(24px);transition:opacity .6s ease, transform .7s cubic-bezier(.22,1,.36,1)}
+.reveal-up.in{opacity:1;transform:none}
+@media (prefers-reduced-motion: reduce){.reveal-up{opacity:1;transform:none;transition:none}}
+.metacard{background:var(--ink);color:var(--bg);border-radius:22px;padding:28px 28px 22px;max-width:580px;margin:0 auto 30px;text-align:center;box-shadow:8px 8px 0 rgba(32,40,28,.18)}
+.contador{font-family:var(--display);font-weight:800;font-size:clamp(44px,9vw,70px);color:var(--rose-soft);line-height:1;margin-top:8px;font-variant-numeric:tabular-nums}
+.mini-info{display:flex;gap:12px;align-items:center;justify-content:center;background:#1c130d;border-radius:14px;padding:12px 16px;margin-top:14px}
+.mini-info .ico{font-size:26px}
+.mini-info b{font-family:var(--head);font-weight:700;text-transform:uppercase;font-size:15px;color:var(--rose-soft);display:block;letter-spacing:.04em}
+
+/* Pasos */
+.pasos{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:15px}
+.paso{background:var(--white);border:2px solid var(--brand);border-radius:16px;padding:20px;box-shadow:6px 6px 0 var(--ink)}
+.paso b{font-family:var(--head);font-weight:700;text-transform:uppercase;font-size:16.5px;display:block;margin-bottom:5px}
+.paso .num{font-family:var(--head);font-weight:700;font-size:14px;color:#fff;background:var(--rose);
+  border-radius:99px;width:32px;height:32px;display:inline-flex;align-items:center;justify-content:center;margin-bottom:10px}
+.paso p{font-size:13.5px;color:var(--muted)}
+
+/* Destino / transparencia */
+.destino{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:15px}
+.rubro{border:2px solid var(--brand);border-radius:16px;padding:20px;background:var(--white);box-shadow:6px 6px 0 var(--ink)}
+.rubro .ico{font-size:30px;margin-bottom:8px;display:block}
+.rubro b{font-family:var(--head);font-weight:700;text-transform:uppercase;font-size:16px;display:block;margin-bottom:4px}
+.rubro p{font-size:13px;color:var(--muted)}
+.transp{background:var(--ink);color:var(--bg);border-radius:18px;padding:26px;margin-top:18px;display:flex;gap:18px;flex-wrap:wrap;align-items:center}
+.transp b{color:var(--rose-soft);font-family:var(--head);text-transform:uppercase;letter-spacing:.06em}
+
+/* Banda destacada */
+.band{background:var(--ink);color:var(--bg);border-radius:20px;padding:30px 26px;text-align:center;box-shadow:8px 8px 0 rgba(32,40,28,.18)}
+.band .tag{color:var(--rose-soft)}
+
+/* Calculadora (placeholder visual, sin lógica) */
+.calc{background:var(--ink);color:var(--bg);border-radius:18px;padding:24px;margin-top:22px;max-width:560px}
+.calc label{font-family:var(--head);font-weight:500;font-size:12px;text-transform:uppercase;letter-spacing:.1em;color:var(--rose-soft);display:block;margin-bottom:10px}
+.calc .chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.calc .chips button{font-family:var(--head);font-weight:700;font-size:14px;border:2px solid var(--bg);
+  background:transparent;color:var(--bg);border-radius:99px;padding:8px 16px;cursor:not-allowed;opacity:.85}
+.calc .chips button.on{background:var(--rose);border-color:var(--rose);color:var(--white)}
+.calc input{width:100%;padding:12px 14px;border:2px solid var(--muted);border-radius:10px;background:#1c130d;
+  color:var(--bg);font-family:var(--body);font-size:16px}
+.calc .res{font-family:var(--display);font-weight:800;font-size:clamp(28px,6vw,40px);color:var(--rose-soft);
+  margin-top:14px;line-height:1.1}
+.calc .res small{display:block;font-family:var(--body);font-weight:400;font-size:12px;color:var(--rose-soft);text-transform:none;letter-spacing:0;margin-top:6px;opacity:.85}
+
+/* Términos */
+.tyc-acc summary{cursor:pointer;list-style:none;font-family:var(--head);font-weight:700;text-transform:uppercase;letter-spacing:.05em;font-size:15px;background:var(--ink);color:var(--bg);padding:15px 20px;border-radius:12px;box-shadow:4px 4px 0 rgba(32,40,28,.25);display:flex;justify-content:space-between;align-items:center;gap:12px}
+.tyc-acc summary::-webkit-details-marker{display:none}
+.tyc-acc summary::after{content:"+";font-size:22px;line-height:1}
+.tyc-acc[open] summary::after{content:"–"}
+.tyc-doc{background:var(--white);border:2px solid var(--brand);border-radius:16px;padding:26px 24px;text-align:left;box-shadow:6px 6px 0 var(--ink)}
+.tyc-acc[open] .tyc-doc{margin-top:14px}
+.tyc-doc p{font-size:13.5px;margin:0 0 8px;line-height:1.5;color:var(--muted)}
+
+/* Footer */
+footer{background:var(--ink);color:var(--bg);margin-top:80px;padding:44px 0;text-align:center}
+footer .tag{color:var(--rose-soft)}
+small.legal{display:block;color:#9a9a90;font-size:11px;max-width:640px;margin:12px auto 0}
+
+/* Banner maqueta sticky */
+.bannerdemo{background:var(--rose);color:#fff;text-align:center;font-family:var(--head);letter-spacing:.2em;
+  font-size:11px;padding:7px;text-transform:uppercase;position:sticky;top:0;z-index:999;font-weight:600}
+
+/* CTA fija móvil */
+.ctafloat{position:fixed;bottom:0;left:0;right:0;z-index:997;padding:10px 14px;background:rgba(245,242,236,.94);
+  backdrop-filter:blur(4px);border-top:2px solid var(--brand);display:none}
+.ctafloat a{display:block;text-align:center}
+
+@media(max-width:640px){
+  .wrap{padding:0 14px}
+  header{padding:34px 0 20px!important}
+  section{padding-top:48px!important}
+  .metacard{padding:20px 16px 16px}
+  .btn{display:block;width:100%;text-align:center;padding:16px 10px;font-size:15px}
+  .transp{padding:20px}
+  .bannerdemo{font-size:9.5px;letter-spacing:.12em}
+  footer{padding:34px 0 90px}
+  .ctafloat{display:block}
+}
+</style>
+</head>
+<body>
+
+<div class="bannerdemo">Maqueta — versión inicial TERS · contenido de referencia</div>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<header style="text-align:center;padding:60px 0 26px">
+  <div class="wrap">
+    <div style="display:flex;gap:22px;align-items:center;justify-content:center;margin-bottom:22px;flex-wrap:wrap">
+      <!-- AQUÍ VA EL LOGO (TERS) — placeholder, aún sin archivo -->
+      <div class="logo-cell">
+        <span class="logo-ph">Aquí va el logo de TERS</span>
+        <span class="logo-cap">Logo de TERS</span>
+      </div>
+      <span style="font-family:var(--head);font-weight:500;font-size:22px;color:var(--muted)">×</span>
+      <!-- Logo real de Reconstruyendo el Valle -->
+      <div class="logo-cell">
+        <img class="logo-img" src="assets/reconstruyendo-el-valle-transparente.png" alt="Reconstruyendo el Valle">
+      </div>
+    </div>
+
+    <p class="eyebrow">TERS por la Reconstrucción de un nuevo Cali 🇨🇴</p>
+    <h1 style="margin:20px 0 10px">Ayudemos<br>a reconstruir el Valle.</h1>
+    <p class="serif" style="font-size:clamp(19px,3.2vw,28px)">Cada aporte llega de manera directa y transparente a quienes más lo necesitan.</p>
+    <p style="max-width:580px;margin:16px auto 0;font-size:15px;color:var(--muted)">Desde TERS nos sumamos a un grupo de marcas, creadores y empresarios que ponemos nuestro tiempo, recursos y redes al servicio del Valle y de las personas afectadas por la emergencia. Los fondos se destinan a ayudas y elementos de primera necesidad.</p>
+    <p style="margin:16px 0 4px;font-family:var(--head);font-weight:700;text-transform:uppercase;letter-spacing:.05em">El 100% va a la causa: <span class="hl">tu aporte llega directo a la VAKI.</span></p>
+
+    <!-- ─── Contador (se alimenta de la VAKI — ver script) ─── -->
+    <div class="metacard" style="margin-top:26px">
+      <p class="eyebrow" style="color:var(--rose-soft);letter-spacing:.3em">Donado hasta hoy</p>
+      <div class="contador" id="contador">$0</div>
+      <div class="progress" style="margin:14px 0 8px"><div id="barra" style="width:0%"></div><span id="barraTxt">—</span></div>
+      <p id="metaTxt" style="font-size:12.5px;color:var(--rose-soft)">Meta <b>$—</b></p>
+      <p id="actualizado" style="font-size:11px;color:var(--rose-soft);margin-top:4px;opacity:.85">Cifra de referencia — pendiente conexión en vivo con VAKI.</p>
+      <div class="mini-info">
+        <span class="ico">🤝</span>
+        <div style="text-align:left">
+          <b id="aportesTxt">—</b>
+          <p style="font-size:11.5px;color:var(--rose-soft);margin:0;opacity:.85">personas ya se sumaron a la causa</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- El botón lleva a la VAKI oficial -->
+    <a class="btn" id="btnDonar" href="#" target="_blank" rel="noopener">Donar en VAKI →</a>
+    <p style="margin-top:12px;font-size:12.5px;color:var(--muted)">Te lleva a la campaña oficial en <b>VAKI</b>. Tu donación se procesa allá, en sus canales seguros; TERS no recauda ni administra el dinero.</p>
+
+    <!-- ESPACIO PARA PROMOCIÓN (20x20 u otra) — pendiente -->
+    <div class="ph-block" style="margin-top:26px;max-width:580px;margin-left:auto;margin-right:auto">
+      <span class="ph-tag">Espacio para promoción</span>
+      <h3>Aquí va la promoción</h3>
+      <p>Reservado para colocar la mecánica de la promoción (por ejemplo la de "20 x 20") cuando se defina. Por ahora es solo un espacio marcado en la maqueta.</p>
+    </div>
+  </div>
+</header>
+
+<!-- ═══════════════ BANDA: promoción pendiente ═══════════════ -->
+<section id="promo" style="padding:52px 0 0">
+  <div class="wrap">
+    <div class="band">
+      <p class="tag">La promoción</p>
+      <h2 style="margin:8px 0 12px">Aquí irá la mecánica<br>de la promoción.</h2>
+      <p style="max-width:600px;margin:0 auto;font-size:15px;color:var(--rose-soft)">Espacio reservado para explicar qué aporta TERS y qué gana quien participa. Se definirá y activará más adelante; por ahora queda marcado como pendiente en la maqueta.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ PASO A PASO ═══════════════ -->
+<section id="como" style="padding:64px 0 0">
+  <div class="wrap">
+    <p class="tag">Paso a paso</p>
+    <h2 style="margin:8px 0 26px">Así funciona.</h2>
+    <div class="pasos">
+      <div class="paso"><span class="num">1</span><b>Donas en la VAKI</b><p>El botón te lleva directo a la campaña oficial en VAKI. Donas allá, con tus datos. El dinero nunca pasa por TERS.</p></div>
+      <div class="paso"><span class="num">2</span><b>Tu aporte llega directo</b><p>Los fondos se destinan a ayudas y elementos de primera necesidad para las comunidades afectadas del Valle.</p></div>
+      <div class="paso"><span class="num">3</span><b>Sumamos entre todos</b><p>Aquí solo te mostramos cuánto vamos reuniendo entre toda la comunidad que se une a la causa.</p></div>
+      <div class="paso"><span class="num">4</span><b>Participas en la promoción</b><p><i>Paso reservado a la mecánica de la promoción — pendiente de definir.</i></p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ TRANSPARENCIA / DESTINO ═══════════════ -->
+<section id="destino" style="padding:64px 0 0">
+  <div class="wrap">
+    <p class="tag">Transparencia total</p>
+    <h2 style="margin:8px 0 10px">¿A dónde va<br>tu aporte?</h2>
+    <p style="max-width:620px;font-size:14.5px;margin-bottom:26px;color:var(--muted)">Lo hacemos de la mano de <b>Reconstruyendo el Valle</b> y su campaña en VAKI. Tu aporte entra <b>directo a la campaña</b>, nunca pasa por TERS, y se convierte en <b>ayuda para el Valle</b>: elementos de primera necesidad, apoyo a las familias afectadas y a las comunidades más golpeadas por la emergencia. Estos son los frentes:</p>
+    <div class="destino">
+      <div class="rubro"><span class="ico">📦</span><b>Elementos de primera necesidad</b><p>Kits de ayuda, alimentos y elementos esenciales para las familias afectadas.</p></div>
+      <div class="rubro"><span class="ico">🏠</span><b>Apoyo a comunidades</b><p>Ayuda directa a las comunidades del Valle más golpeadas por la emergencia.</p></div>
+      <div class="rubro"><span class="ico">📍</span><b>Centro de acopio</b><p>Recepción de donaciones en el centro de acopio: Avenida 9 Norte # 17N-41, Floret (Cali, Valle del Cauca).</p></div>
+      <div class="rubro"><span class="ico">💛</span><b>Aporte directo y transparente</b><p>Cada aporte busca llegar de manera directa y transparente a quienes más lo necesitan.</p></div>
+    </div>
+    <div class="transp">
+      <div style="flex:1;min-width:240px">
+        <b>Usamos el alcance de TERS para algo más:</b>
+        <p style="font-size:13.5px;margin-top:6px;color:var(--bg)">Lo usamos para <b style="color:var(--rose-soft)">multiplicar la ayuda</b>. La donación se hace en los canales oficiales y seguros de la VAKI; aquí solo te mostramos cuánto vamos sumando entre todos.</p>
+      </div>
+    </div>
+    <p style="font-size:11.5px;margin-top:10px;color:var(--muted)"><i>Información con base en la campaña oficial de VAKI; las cifras pueden cambiar a medida que avanza la emergencia.</i></p>
+  </div>
+</section>
+
+<!-- ═══════════════ PREMIO + CALCULADORA (placeholder visual, sin lógica) ═══════════════ -->
+<section id="promo-detalle" style="padding:64px 0 0">
+  <div class="wrap">
+    <p class="tag">La promoción</p>
+    <h2 style="margin:8px 0 10px">Detalle de la<br>promoción.</h2>
+    <p style="max-width:640px;font-size:14.5px;color:var(--muted)"><i>Bloque de diseño reservado para el detalle de la promoción. La calculadora de abajo es solo una vista previa; su lógica se activará cuando se defina la mecánica.</i></p>
+    <div class="calc" aria-hidden="true">
+      <label>Vista previa — calculadora (pendiente)</label>
+      <div class="chips" id="calcChips">
+        <button class="on" type="button" disabled>$20.000</button>
+        <button type="button" disabled>$40.000</button>
+        <button type="button" disabled>$50.000</button>
+        <button type="button" disabled>$100.000</button>
+        <button type="button" disabled>$200.000</button>
+      </div>
+      <input type="number" value="20000" min="0" step="1000" placeholder="Otro valor en pesos" disabled>
+      <div class="res">Pendiente<small>La mecánica de la promoción se definirá más adelante.</small></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ ¿YA DONASTE? / WALLPAPER (placeholder visual) ═══════════════ -->
+<section id="yadone" style="padding:64px 0 0">
+  <div class="wrap" style="max-width:640px;text-align:center">
+    <p class="tag">¿Ya donaste?</p>
+    <h2 style="margin:8px 0 10px">Comparte la causa.</h2>
+    <p style="font-size:14.5px;max-width:520px;margin:0 auto 20px;color:var(--muted)">Ya donaste en la VAKI: ¡gracias! Ayúdanos a que más personas se sumen compartiendo la campaña en tus redes.</p>
+    <div class="ph-block">
+      <span class="ph-tag">Pendiente</span>
+      <h3>Aquí va el wallpaper / pieza para compartir</h3>
+      <p>Espacio reservado para el generador de wallpaper o la pieza descargable de la campaña. Se activará más adelante.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ TÉRMINOS ═══════════════ -->
+<section id="tyc" style="padding:64px 0 0">
+  <div class="wrap" style="max-width:720px">
+    <p class="tag">Lo legal</p>
+    <h2 style="margin:8px 0 16px">Términos y condiciones</h2>
+    <details class="tyc-acc">
+      <summary>Ver términos y condiciones</summary>
+      <div class="tyc-doc">
+        <p><b>Términos y condiciones — pendientes de definir.</b></p>
+        <p>Este es un espacio reservado. Aquí irán los términos y condiciones de la campaña y de la promoción una vez se definan y cuenten con validación jurídica. Las donaciones se realizan directamente en los canales oficiales de la VAKI; TERS no recauda ni administra dineros.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer>
+  <div class="wrap">
+    <!-- AQUÍ VA EL LOGO (TERS, versión footer) -->
+    <span class="logo-ph" style="background:transparent;border-color:var(--rose-soft);color:var(--rose-soft)">Aquí va el logo de TERS</span>
+    <p class="tag" style="margin:16px 0 3px">TERS por la Reconstrucción de un nuevo Cali</p>
+    <p style="font-size:13.5px">Sumemos esfuerzos y ayudemos juntos. Hoy el Valle y Colombia nos necesitan.</p>
+    <p style="margin-top:10px"><a href="#tyc" style="color:var(--rose-soft);font-size:12.5px;font-family:var(--head);text-transform:uppercase;letter-spacing:.08em">Términos y condiciones</a></p>
+    <small class="legal">Campaña solidaria. Las donaciones se realizan directamente en la campaña oficial de VAKI; TERS no recauda ni administra dineros. El resultado de los aportes puede consultarse en los canales oficiales de la VAKI. El detalle de la mecánica de la promoción se comunicará en los términos y condiciones.</small>
+  </div>
+</footer>
+
+<!-- CTA fija (móvil) -->
+<div class="ctafloat"><a class="btn" id="btnDonarMovil" href="#" target="_blank" rel="noopener" style="box-shadow:none;padding:13px 10px;font-size:15px">Donar en VAKI →</a></div>
+
+<script>
+/* ═══════════════════════════════════════════════════════════════
+   CONTADOR DE DONACIONES (VAKI) — actualización continua
+   ───────────────────────────────────────────────────────────────
+   La VAKI renderiza su recaudo con JavaScript (app Angular) y su API
+   propia exige autenticación (Firebase App Check), así que la web NO
+   puede leer el monto directamente desde el navegador (lo bloquea CORS
+   y la autenticación).
+
+   SOLUCIÓN (sin depender del backend de VAKI): un "agente" propio corre
+   por fuera cada X minutos (ver agente-vaki.mjs + AGENTE-VAKI.md),
+   lee el monto público de la campaña y escribe el archivo vaki.json en
+   ESTE mismo sitio. Como vaki.json es del MISMO origen, la web lo lee
+   sin CORS y se refresca sola cada minuto → así se ve "en vivo".
+
+   Formato de vaki.json:  { recaudo, meta, aportes, actualizadoEn }
+   CONFIG es solo el respaldo si aún no existe vaki.json (o al abrir el
+   archivo con file://, donde el fetch no está permitido).
+   ═══════════════════════════════════════════════════════════════ */
+const VAKI_URL = "https://vaki.co/vaki/reconstruccion-nuevo-cali-2026?utm_source=copy&utm_medium=toolbar&utm_campaign=v4";
+const API_VAKI = "vaki.json";        // ← archivo que actualiza el agente (mismo origen, sin CORS)
+const REFRESCO_MS = 60000;           // ← cada cuánto relee vaki.json (60 s)
+
+const CONFIG = {
+  recaudo: 18040606,                    // ← respaldo: monto donado (COP) — VAKI 17 ago 2026
+  meta: 100000000,                      // ← respaldo: meta de referencia (COP), editable
+  aportes: 123,                         // ← respaldo: nº de aportes (Vakers)
+  actualizadoEn: "2026-08-17T12:44:43-05:00" // ← respaldo: fecha ISO
+};
+
+/* Enlazar botones "Donar" a la VAKI */
+document.getElementById('btnDonar').href = VAKI_URL;
+document.getElementById('btnDonarMovil').href = VAKI_URL;
+
+const $ = s => document.querySelector(s);
+const fmt = n => (n||0).toLocaleString('es-CO');
+
+let contadorActual = 0;
+function animarContador(hasta){
+  const el=$('#contador'), desde=contadorActual, t0=performance.now(), dur=1800;
+  function paso(t){
+    const k=Math.min(1,(t-t0)/dur), e=1-Math.pow(1-k,3);
+    el.textContent='$'+fmt(Math.round(desde+(hasta-desde)*e));
+    if(k<1){ requestAnimationFrame(paso); }
+    else { contadorActual=hasta; el.classList.remove('bump'); void el.offsetWidth; el.classList.add('bump'); }
+  }
+  requestAnimationFrame(paso);
+}
+
+let ultimoDato = null;   // último dato recibido (aunque aún no se haya animado)
+let visible = false;     // ¿la tarjeta ya entró en pantalla?
+
+function pintar(d){
+  ultimoDato = d;
+  // Texto que no necesita animación (se actualiza siempre):
+  $('#metaTxt').innerHTML = `Meta <b>$${fmt(d.meta)}</b>`;
+  $('#aportesTxt').textContent = d.aportes>0 ? fmt(d.aportes) : '—';
+  if(d.actualizadoEn){
+    const f=new Date(d.actualizadoEn);
+    const fecha=f.toLocaleDateString('es-CO',{day:'2-digit',month:'2-digit',year:'2-digit',timeZone:'America/Bogota'});
+    const hora=f.toLocaleTimeString('es-CO',{hour:'2-digit',minute:'2-digit',hour12:false,timeZone:'America/Bogota'});
+    $('#actualizado').textContent = 'Última actualización: '+hora+' · '+fecha;
+  } else {
+    $('#actualizado').textContent = 'Cifra de referencia — pendiente conexión en vivo con VAKI.';
+  }
+  // El dinero y la barra solo se animan cuando la tarjeta está a la vista.
+  if(visible) animarAvance(d);
+}
+
+function animarAvance(d){
+  const pct = d.meta>0 ? Math.round((d.recaudo/d.meta)*1000)/10 : 0;
+  if(d.recaudo !== contadorActual) animarContador(d.recaudo);
+  const barra=$('#barra');
+  barra.style.width = Math.min(100,pct)+'%';
+  barra.parentElement.classList.add('reveal');
+  $('#barraTxt').textContent = pct>=100 ? '¡META SUPERADA! Y seguimos…' : `${String(pct).replace('.',',')}% de la meta`;
+}
+
+// Dispara la animación del dinero cuando la .metacard entra en pantalla.
+const _card = document.querySelector('.metacard');
+if('IntersectionObserver' in window && _card){
+  const _obs = new IntersectionObserver((entries)=>{
+    for(const en of entries){
+      if(en.isIntersecting && !visible){
+        visible = true;
+        if(ultimoDato) animarAvance(ultimoDato);
+      }
+    }
+  }, {threshold:0.35});
+  _obs.observe(_card);
+} else {
+  visible = true;
+  if(ultimoDato) animarAvance(ultimoDato);
+}
+
+async function cargarVaki(){
+  try{
+    // Relee vaki.json (con cache-buster para ver siempre el último valor del agente).
+    const r = await fetch(API_VAKI + '?t=' + Date.now(), {cache:'no-store'});
+    if(!r.ok) throw new Error('http '+r.status);
+    const d = await r.json();
+    pintar({
+      recaudo: d.recaudo ?? CONFIG.recaudo,
+      meta: d.meta ?? CONFIG.meta,
+      aportes: d.aportes ?? CONFIG.aportes,
+      actualizadoEn: d.actualizadoEn ?? null
+    });
+  }catch(e){
+    // Respaldo: sin vaki.json (o abierto con file://) usa CONFIG.
+    pintar(CONFIG);
+  }
+}
+
+cargarVaki();
+// Refresco continuo mientras la página está abierta.
+setInterval(cargarVaki, REFRESCO_MS);
+
+/* ═══ Reveal on scroll: títulos (h2, .tag) y tarjetas ═══ */
+const _revElems = document.querySelectorAll(
+  'section h2, section .tag, .paso, .rubro, .band, .ph-block, .calc, .transp, .tyc-acc'
+);
+if('IntersectionObserver' in window){
+  const _io = new IntersectionObserver((entries, obs)=>{
+    for(const en of entries){
+      if(en.isIntersecting){ en.target.classList.add('in'); obs.unobserve(en.target); }
+    }
+  }, {threshold:0.12, rootMargin:'0px 0px -8% 0px'});
+  _revElems.forEach(el=>{
+    el.classList.add('reveal-up');
+    // Escalonado para grupos de tarjetas (efecto en cascada).
+    if(el.matches('.paso, .rubro')){
+      const hermanos = [...el.parentElement.children].filter(c=>c.matches('.paso, .rubro'));
+      el.style.transitionDelay = (hermanos.indexOf(el) * 90) + 'ms';
+    }
+    _io.observe(el);
+  });
+} else {
+  _revElems.forEach(el=>el.classList.add('in'));
+}
+</script>
+</body>
+</html>
